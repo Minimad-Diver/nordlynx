@@ -1,5 +1,4 @@
-FROM ubuntu:18.04
-ARG DEBIAN_FRONTEND=noninteractive
+FROM ubuntu:20.04
 
 RUN mkdir /vpn
 WORKDIR /vpn
@@ -7,25 +6,16 @@ WORKDIR /vpn
 COPY ./start.sh ./
 RUN chmod +x ./start.sh
 
-RUN apt-get update && \
-    apt-get install -y \
-    dialog apt-utils
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-
-RUN add-apt-repository ppa:wireguard/wireguard && \
-    apt-get update && \
-    apt-get install -y wireguard
+RUN apt update && \
+    apt install -y \
+    curl
 
 RUN curl https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb \
     --output nordvpn-release_1.0.0_all.deb && \
-    dpkg -i ./nordvpn-release_1.0.0_all.deb && \
-    apt-get update && \
-    apt-get install -y nordvpn || true
+    apt install -y ./nordvpn-release_1.0.0_all.deb && \
+    apt update && \
+    apt install -y nordvpn || true
 
 ENTRYPOINT [ "./start.sh" ]
