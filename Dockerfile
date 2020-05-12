@@ -1,4 +1,5 @@
 FROM ubuntu:20.04
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir /vpn
 WORKDIR /vpn
@@ -8,14 +9,12 @@ RUN chmod +x ./start.sh
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt update && \
-    apt install -y \
-    curl
+ADD https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb ./
 
-RUN curl https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb \
-    --output nordvpn-release_1.0.0_all.deb && \
-    apt install -y ./nordvpn-release_1.0.0_all.deb && \
-    apt update && \
-    apt install -y nordvpn || true
+RUN apt-get update && \
+    apt-get install -y ca-certificates apt-utils && \
+    apt-get install -y ./nordvpn-release_1.0.0_all.deb && \
+    apt-get update && \
+    apt-get install -y nordvpn
 
 ENTRYPOINT [ "./start.sh" ]
