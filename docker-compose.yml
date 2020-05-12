@@ -1,0 +1,28 @@
+version: "3.7"
+
+########################### NETWORKS
+networks:
+  t2_proxy:
+    external:
+      name: t2_proxy
+
+########################### VOLUMES
+
+########################### SERVICES
+services:
+
+# Test nordlynx
+  nordlynx:
+    container_name: nordlynx
+    image: nordlynx
+    restart: unless-stopped
+    networks:
+      - t2_proxy
+#    security_opt:
+#      - no-new-privileges:true
+    cap_add:
+      - NET_ADMIN
+    environment:
+     - TZ=$TZ
+     - USERNAME=$USERNAME
+     - PASSWORD=$PASSWORD
