@@ -15,12 +15,14 @@ nordvpn set technology nordlynx
 echo "**** connect ****"
 
 if [[ ! -v NL_GROUP ]] || [[ -z "$NL_GROUP" ]]; then
+   nordvpn whitelist add subnet $NL_WHITELIST
+fi
+
+if [[ ! -v NL_GROUP ]] || [[ -z "$NL_GROUP" ]]; then
     echo "NL_GROUP is not set"
     nordvpn connect $NL_COUNTRY
 else
     nordvpn connect $NL_COUNTRY -g $NL_GROUP
 fi
-
-#nordvpn connect
 
 tail -f /dev/null
