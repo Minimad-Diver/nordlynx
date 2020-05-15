@@ -14,7 +14,9 @@ echo "**** set technology nordlynx ****"
 nordvpn set technology nordlynx
 echo "**** connect ****"
 
-if [[ ! -v NL_GROUP ]] || [[ -z "$NL_GROUP" ]]; then
+if [[ ! -v NL_WHITELIST ]] || [[ -z "$NL_WHITELIST" ]]; then
+   echo "No whitelist to setup"
+else
    nordvpn whitelist add subnet $NL_WHITELIST
 fi
 
