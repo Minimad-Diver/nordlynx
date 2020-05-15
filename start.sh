@@ -9,10 +9,18 @@ bash /etc/init.d/nordvpn start
 sleep 5
 
 echo "**** login ****"
-nordvpn login -u $USERNAME -p "$PASSWORD"
+nordvpn login -u $NL_USERNAME -p "$NL_PASSWORD"
 echo "**** set technology nordlynx ****"
 nordvpn set technology nordlynx
 echo "**** connect ****"
-nordvpn connect
+
+if [[ ! -v NL_GROUP ]] || [[ -z "$NL_GROUP" ]]; then
+    echo "NL_GROUP is not set"
+    nordvpn connect $NL_COUNTRY
+else
+    nordvpn connect $NL_COUNTRY -g $NL_GROUP
+fi
+
+#nordvpn connect
 
 tail -f /dev/null

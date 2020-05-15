@@ -24,5 +24,7 @@ services:
       - NET_ADMIN
     environment:
      - TZ=$TZ
-     - USERNAME=$USERNAME
-     - PASSWORD=$PASSWORD
+     - NL_USERNAME=$NL_USERNAME
+     - NL_PASSWORD=$NL_PASSWORD
+     - NL_COUNTRY=$NL_COUNTRY
+     - NL_GROUP=$NL_GROUP
