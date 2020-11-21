@@ -17,7 +17,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates wireguard-tools && \
     apt-get install -y ./nordvpn-release_1.0.0_all.deb && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nordvpn && \
+    apt-get install -y --no-install-recommends nordvpn=3.7.4 && \
     rm -rf /var/lib/apt/lists/*
 
 ENTRYPOINT [ "./start.sh" ]
