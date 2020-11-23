@@ -19,7 +19,6 @@ ADD https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends dialog apt-utils && \
-    apt-get install -y --no-install-recommends ca-certificates wireguard-tools && \
     apt-get install -y wget dpkg curl gnupg2 jq traceroute && \
     apt-get install -y ./nordvpn-release_1.0.0_all.deb && \
     apt-get update && \
